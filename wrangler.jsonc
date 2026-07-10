@@ -1,0 +1,11 @@
+{
+  // Деплой статики (Vite SPA) через Cloudflare Workers static assets.
+  // Явный конфиг с "assets" отключает авто-настройку через Vite-плагин,
+  // которая требует Vite >= 6. Worker-скрипт не нужен — отдаём только dist/.
+  "name": "react-site-portfolio",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
