@@ -26,7 +26,7 @@ export function useBackground() {
     // gamma — наклон влево-вправо, beta — вперёд-назад. Маппим в тот же диапазон, что и мышь.
     const coarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches
     if (coarse && !reduce && typeof window.DeviceOrientationEvent !== 'undefined') {
-      const CLAMP = 28              // ±28° наклона = полный размах
+      const CLAMP = 14              // ±14° наклона = полный размах (чувствительность как у мыши)
       let base = null              // авто-калибровка нуля по первому замеру (как держат телефон)
       const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v)
       const onTilt = (e) => {
@@ -95,8 +95,8 @@ export function useBackground() {
     const loop = () => {
       // В режиме наклона плавно тянем mx/my к целям гироскопа (сглаживание шума сенсора).
       if (state.tilt) {
-        state.mx += (state.tmx - state.mx) * 0.08
-        state.my += (state.tmy - state.my) * 0.08
+        state.mx += (state.tmx - state.mx) * 0.18
+        state.my += (state.tmy - state.my) * 0.18
       }
       const { mx, my, sy } = state
       document.querySelectorAll('[data-mx]').forEach((el) => {
