@@ -94,12 +94,12 @@ export default function App() {
         backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderBottom: '1px solid var(--line-1)',
       }}>
         <a href="#top" style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em', color: 'var(--fg-1)', textDecoration: 'none' }}>
-          ALEKSEY VTORYGIN<sup style={{ fontSize: 9, color: 'var(--accent)' }}>®</sup>
+          ALEKSEY VTORYGIN
         </a>
         <div className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
-          <HoverLink href="#work" style={{ ...meta, color: 'var(--fg-2)' }}>{t.navWork}</HoverLink>
           <HoverLink href="#about" style={{ ...meta, color: 'var(--fg-2)' }}>{t.navAbout}</HoverLink>
           <HoverLink href="#timeline" style={{ ...meta, color: 'var(--fg-2)' }}>{t.navTimeline}</HoverLink>
+          <HoverLink href="#work" style={{ ...meta, color: 'var(--fg-2)' }}>{t.navWork}</HoverLink>
           <HoverLink href="#contact" style={{ ...meta, color: 'var(--fg-2)' }}>{t.navContact}</HoverLink>
           <span style={{ width: 1, height: 16, background: 'var(--line-2)' }} />
           <span className="nav-lang" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, ...meta }}>
