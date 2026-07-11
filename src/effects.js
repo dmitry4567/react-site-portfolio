@@ -10,7 +10,9 @@ const prefersReduced = () =>
 export function useBackground() {
   useEffect(() => {
     const cleanup = []
-    const state = { mx: 0, my: 0, sy: 0 }
+    // mx/my — значения параллакса (-0.5..0.5), которые читает loop.
+    // tmx/tmy — целевые значения от гироскопа, к ним плавно тянемся; tilt — режим наклона активен.
+    const state = { mx: 0, my: 0, sy: 0, tmx: 0, tmy: 0, tilt: false }
     const reduce = prefersReduced()
 
     const onMove = (e) => { state.mx = e.clientX / window.innerWidth - 0.5; state.my = e.clientY / window.innerHeight - 0.5 }
@@ -19,6 +21,49 @@ export function useBackground() {
     window.addEventListener('scroll', onScroll, { passive: true })
     cleanup.push(() => window.removeEventListener('mousemove', onMove))
     cleanup.push(() => window.removeEventListener('scroll', onScroll))
+
+    // ===== Параллакс по гироскопу (акселерометр) на телефонах =====
+    // gamma — наклон влево-вправо, beta — вперёд-назад. Маппим в тот же диапазон, что и мышь.
+    const coarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches
+    if (coarse && !reduce && typeof window.DeviceOrientationEvent !== 'undefined') {
+      const CLAMP = 28              // ±28° наклона = полный размах
+      let base = null              // авто-калибровка нуля по первому замеру (как держат телефон)
+      const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v)
+      const onTilt = (e) => {
+        if (e.gamma == null && e.beta == null) return
+        if (base == null) base = e.beta || 0
+        state.tilt = true
+        // учёт ориентации экрана (портрет/ландшафт): оси gamma/beta меняются местами
+        const ang = (window.screen && window.screen.orientation && window.screen.orientation.angle) || window.orientation || 0
+        const g = e.gamma || 0
+        const b = (e.beta || 0) - base
+        let x, y
+        if (ang === 90) { x = b; y = -g }
+        else if (ang === -90 || ang === 270) { x = -b; y = g }
+        else { x = g; y = b }       // портрет
+        state.tmx = clamp(x, -CLAMP, CLAMP) / CLAMP * 0.5
+        state.tmy = clamp(y, -CLAMP, CLAMP) / CLAMP * 0.5
+      }
+      const addTilt = () => window.addEventListener('deviceorientation', onTilt, { passive: true })
+      cleanup.push(() => window.removeEventListener('deviceorientation', onTilt))
+
+      // iOS 13+: доступ к датчику только после явного разрешения по жесту пользователя.
+      if (typeof window.DeviceOrientationEvent.requestPermission === 'function') {
+        const ask = () => {
+          window.DeviceOrientationEvent.requestPermission()
+            .then((res) => { if (res === 'granted') addTilt() })
+            .catch(() => {})
+          window.removeEventListener('touchend', ask)
+          window.removeEventListener('click', ask)
+        }
+        window.addEventListener('touchend', ask, { passive: true })
+        window.addEventListener('click', ask)
+        cleanup.push(() => { window.removeEventListener('touchend', ask); window.removeEventListener('click', ask) })
+      } else {
+        // Android/остальные — разрешение не требуется.
+        addTilt()
+      }
+    }
 
     const cv = document.getElementById('ds-bg')
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -48,6 +93,11 @@ export function useBackground() {
     const md = 150 * dpr
     let raf = 0
     const loop = () => {
+      // В режиме наклона плавно тянем mx/my к целям гироскопа (сглаживание шума сенсора).
+      if (state.tilt) {
+        state.mx += (state.tmx - state.mx) * 0.08
+        state.my += (state.tmy - state.my) * 0.08
+      }
       const { mx, my, sy } = state
       document.querySelectorAll('[data-mx]').forEach((el) => {
         const d = parseFloat(el.dataset.mx) || 0
