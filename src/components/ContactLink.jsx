@@ -6,6 +6,7 @@ export default function ContactLink({ label = 'EMAIL', value = 'HI@MARKUS.ONLINE
   return (
     <a
       href={href}
+      className="contact-link"
       target={href.startsWith('http') ? '_blank' : undefined}
       rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
       style={{
@@ -21,7 +22,7 @@ export default function ContactLink({ label = 'EMAIL', value = 'HI@MARKUS.ONLINE
         letterSpacing: 'var(--tracking-meta)', color: 'var(--fg-3)',
         textTransform: 'uppercase', flex: 'none',
       }}>{label}</span>
-      <span style={{
+      <span className="contact-value" style={{
         fontFamily: 'var(--font-display)', fontWeight: 'var(--weight-display)',
         fontSize: size, letterSpacing: 'var(--tracking-display)', lineHeight: 1.1,
         textTransform: 'uppercase', textAlign: 'right',

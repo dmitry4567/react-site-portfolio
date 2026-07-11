@@ -530,3 +530,37 @@ body { overflow-x: hidden; }
   .nav-links a { display: none; }
   .nav-links .nav-lang { display: inline-flex !important; }
 }
+
+/* Адаптив: телефоны — уменьшаем крупную типографику и вертикальные отступы */
+@media (max-width: 560px) {
+  :root {
+    --container-pad: 20px;
+    --text-hero: clamp(38px, 11.5vw, 60px);
+    --text-h2: 30px;
+    --text-h3: 22px;
+    --text-lg: 18px;
+    --text-md: 16px;
+    --space-9: 56px;   /* вертикальные отступы секций */
+    --space-8: 40px;   /* внутренние отступы кейсов и гэпы */
+  }
+
+  /* HERO */
+  .hero-grid { min-height: auto !important; padding-bottom: var(--space-7) !important; }
+  .hero-title { hyphens: auto; }
+
+  /* WORK — номер кейса */
+  .case-no { font-size: 30px !important; }
+
+  /* CONTACT — метка над крупной ссылкой, чтобы не жать по ширине */
+  .contact-link { flex-direction: column !important; align-items: flex-start !important; gap: var(--space-2) !important; }
+  .contact-value { font-size: 30px !important; text-align: left !important; }
+}
+
+/* Совсем узкие экраны */
+@media (max-width: 380px) {
+  :root {
+    --container-pad: 16px;
+    --text-hero: clamp(28px, 8.5vw, 38px);
+    --text-h2: 26px;
+  }
+}

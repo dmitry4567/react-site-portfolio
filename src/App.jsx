@@ -127,7 +127,7 @@ export default function App() {
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)', boxShadow: 'var(--glow-sm)' }} />
             {HERO[lang].eyebrow}
           </span>
-          <h1 data-mx="26" style={{ fontSize: 'var(--text-hero)', lineHeight: 'var(--leading-display)', letterSpacing: 'var(--tracking-display)', textTransform: 'uppercase', margin: 0 }}>
+          <h1 data-mx="26" className="hero-title" style={{ fontSize: 'var(--text-hero)', lineHeight: 'var(--leading-display)', letterSpacing: 'var(--tracking-display)', textTransform: 'uppercase', margin: 0, overflowWrap: 'break-word' }}>
             <span style={{ color: 'var(--fg-1)' }}>{HERO[lang].title1}</span><br />
             <span style={{ color: 'var(--accent)', textShadow: 'var(--glow-text)' }}>{HERO[lang].title2}</span>
           </h1>
@@ -198,7 +198,7 @@ export default function App() {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-4)' }}>
-                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 40, lineHeight: 0.9, color: 'var(--accent)', textShadow: 'var(--glow-text)' }}>{c.no}</span>
+                    <span className="case-no" style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 40, lineHeight: 0.9, color: 'var(--accent)', textShadow: 'var(--glow-text)' }}>{c.no}</span>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                       <h3 style={{ fontSize: 'var(--text-h3)', lineHeight: 'var(--leading-tight)', textTransform: 'uppercase', margin: 0 }}>{c.title}</h3>
                       <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: 'var(--tracking-meta)', textTransform: 'uppercase', color: 'var(--fg-3)' }}>{c.role} · {c.year}</span>
