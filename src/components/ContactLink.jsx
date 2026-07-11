@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ArrowUpRight } from './Icons.jsx'
 
 /** Крупная строка-контакт: label слева, огромная display-ссылка с ↗, лаймовая на ховере. */
 export default function ContactLink({ label = 'EMAIL', value = 'HI@MARKUS.ONLINE', href = 'mailto:hi@markus.online', size = 44 }) {
@@ -31,10 +32,10 @@ export default function ContactLink({ label = 'EMAIL', value = 'HI@MARKUS.ONLINE
       }}>
         {value}
         <span style={{
-          display: 'inline-block', marginLeft: 12, fontFamily: 'var(--font-body)', fontWeight: 700,
+          display: 'inline-block', marginLeft: 12,
           transform: hover ? 'translate(6px, -6px)' : 'none',
           transition: 'transform var(--dur-fast) var(--ease-expo)',
-        }}>↗</span>
+        }}><ArrowUpRight size="0.85em" /></span>
       </span>
     </a>
   )

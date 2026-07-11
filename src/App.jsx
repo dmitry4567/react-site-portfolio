@@ -9,6 +9,7 @@ import SectionHeading from './components/SectionHeading.jsx'
 import Tag from './components/Tag.jsx'
 import ContactLink from './components/ContactLink.jsx'
 import MediaSlot from './components/MediaSlot.jsx'
+import { ArrowUpRight, ArrowDown, PlayIcon } from './components/Icons.jsx'
 
 const STEP = 2
 
@@ -136,14 +137,14 @@ export default function App() {
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--space-5) var(--space-7)', marginTop: 'var(--space-4)' }}>
             <HoverLink href="https://t.me/arhidis1" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 10, ...meta, fontSize: 13, color: 'var(--fg-1)' }}>
-              <span style={{ color: 'var(--fg-3)' }}>{t.tgLabel}</span>@ARHIDIS1<span style={{ fontFamily: 'var(--font-body)', fontWeight: 700 }}>↗</span>
+              <span style={{ color: 'var(--fg-3)' }}>{t.tgLabel}</span>@ARHIDIS1<ArrowUpRight size={13} style={{ marginLeft: 2 }} />
             </HoverLink>
             <HoverLink href="tel:+79508679985" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 10, ...meta, fontSize: 13, color: 'var(--fg-1)' }}>
-              <span style={{ color: 'var(--fg-3)' }}>{t.phoneLabel}</span>+7 950 867-99-85<span style={{ fontFamily: 'var(--font-body)', fontWeight: 700 }}>↗</span>
+              <span style={{ color: 'var(--fg-3)' }}>{t.phoneLabel}</span>+7 950 867-99-85<ArrowUpRight size={13} style={{ marginLeft: 2 }} />
             </HoverLink>
           </div>
           <div style={{ marginTop: 'var(--space-4)' }}>
-            <Button variant="accent" size="lg" onClick={() => downloadResume(lang)}>{t.resume} ↓</Button>
+            <Button variant="accent" size="lg" onClick={() => downloadResume(lang)}>{t.resume} <ArrowDown size={14} /></Button>
           </div>
         </div>
 
@@ -158,7 +159,7 @@ export default function App() {
         </div>
 
         <HoverLink href="#work" style={{ position: 'absolute', left: 'var(--container-pad)', bottom: 'var(--space-6)', zIndex: 2, display: 'inline-flex', alignItems: 'center', gap: 10, ...meta, fontSize: 11, color: 'var(--fg-3)' }}>
-          {t.scroll} <span style={{ display: 'inline-block' }}>↓</span>
+          {t.scroll} <ArrowDown size={12} />
         </HoverLink>
       </section>
 
@@ -185,7 +186,7 @@ export default function App() {
                       <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: 'var(--tracking-meta)', textTransform: 'uppercase', color: 'var(--accent)', background: 'rgba(10,10,11,.6)', backdropFilter: 'blur(6px)', padding: '5px 10px', border: '1px solid var(--line-2)', display: 'inline-flex', alignItems: 'center', gap: 7 }}>
                         <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)', boxShadow: 'var(--glow-sm)' }} />{t.videoBadge}
                       </span>
-                      <span style={{ fontFamily: 'var(--font-body)', fontSize: 18, color: 'var(--accent-ink)', background: 'var(--accent)', width: 42, height: 42, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--glow-md)' }}>▶</span>
+                      <span style={{ color: 'var(--accent-ink)', background: 'var(--accent)', width: 42, height: 42, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: 3, boxShadow: 'var(--glow-md)' }}><PlayIcon size={18} /></span>
                     </div>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-3)' }}>
@@ -284,7 +285,7 @@ export default function App() {
             <ContactLink label={t.phoneLabel} value="+7 950 867-99-85" href="tel:+79508679985" size={44} />
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 'var(--space-5)', marginTop: 'var(--space-8)' }}>
-            <Button variant="accent" size="lg" onClick={() => downloadResume(lang)}>{t.resume} ↓</Button>
+            <Button variant="accent" size="lg" onClick={() => downloadResume(lang)}>{t.resume} <ArrowDown size={14} /></Button>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: 'var(--tracking-meta)', textTransform: 'uppercase', color: 'var(--fg-3)' }}>{t.footer}</span>
           </div>
         </div>
