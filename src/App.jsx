@@ -128,7 +128,7 @@ export default function App() {
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)', boxShadow: 'var(--glow-sm)' }} />
             {HERO[lang].eyebrow}
           </span>
-          <h1 data-mx="26" className="hero-title" style={{ fontSize: 'var(--text-hero)', lineHeight: 'var(--leading-display)', letterSpacing: 'var(--tracking-display)', textTransform: 'uppercase', margin: 0, overflowWrap: 'break-word' }}>
+          <h1 data-mx="26" className="hero-title" style={{ fontSize: 'var(--text-hero)', lineHeight: 'var(--leading-display)', letterSpacing: 'var(--tracking-display)', textTransform: 'uppercase', margin: 0 }}>
             <span style={{ color: 'var(--fg-1)' }}>{HERO[lang].title1}</span><br />
             <span style={{ color: 'var(--accent)', textShadow: 'var(--glow-text)' }}>{HERO[lang].title2}</span>
           </h1>
