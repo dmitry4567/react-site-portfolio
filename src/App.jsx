@@ -17,7 +17,7 @@ function initLang() {
   try {
     const s = localStorage.getItem('markus-lang')
     if (s === 'ru' || s === 'en') return s
-  } catch {}
+  } catch { }
   const nav = ((typeof navigator !== 'undefined' && navigator.language) || 'en').toLowerCase()
   return nav.indexOf('ru') === 0 ? 'ru' : 'en'
 }
@@ -56,7 +56,7 @@ export default function App() {
   const hasMore = vis < total
 
   const setLangPersist = (l) => {
-    try { localStorage.setItem('markus-lang', l) } catch {}
+    try { localStorage.setItem('markus-lang', l) } catch { }
     setLang(l)
   }
 
@@ -142,6 +142,9 @@ export default function App() {
             <HoverLink href="tel:+79508679985" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 10, ...meta, fontSize: 13, color: 'var(--fg-1)' }}>
               <span style={{ color: 'var(--fg-3)' }}>{t.phoneLabel}</span>+7 950 867-99-85<ArrowUpRight size={13} style={{ marginLeft: 2 }} />
             </HoverLink>
+            <HoverLink href="mailto:archytecktoraav@gmail.com" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 10, ...meta, fontSize: 13, color: 'var(--fg-1)' }}>
+              <span style={{ color: 'var(--fg-3)' }}>{t.mail}</span>archytecktoraav@gmail.com<ArrowUpRight size={13} style={{ marginLeft: 2 }} />
+            </HoverLink>
           </div>
           <div style={{ marginTop: 'var(--space-4)' }}>
             <Button variant="accent" size="lg" onClick={() => downloadResume(lang)}>{t.resume} <ArrowDown size={14} /></Button>
@@ -158,9 +161,9 @@ export default function App() {
           </div>
         </div>
 
-        <HoverLink href="#work" style={{ position: 'absolute', left: 'var(--container-pad)', bottom: 'var(--space-6)', zIndex: 2, display: 'inline-flex', alignItems: 'center', gap: 10, ...meta, fontSize: 11, color: 'var(--fg-3)' }}>
+        {/* <HoverLink href="#work" style={{ position: 'absolute', left: 'var(--container-pad)', bottom: 'var(--space-6)', zIndex: 2, display: 'inline-flex', alignItems: 'center', gap: 10, ...meta, fontSize: 11, color: 'var(--fg-3)' }}>
           {t.scroll} <ArrowDown size={12} />
-        </HoverLink>
+        </HoverLink> */}
       </section>
 
       {/* ===== MARQUEE ===== */}
@@ -182,12 +185,12 @@ export default function App() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                   <div style={{ position: 'relative', width: '100%', aspectRatio: '16/10', border: '1px solid var(--line-1)', overflow: 'hidden', background: 'var(--bg-2)' }}>
                     <MediaSlot media={c.media.m0} placeholder={t.vphV} />
-                    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: 14 }}>
+                    {/* <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: 14 }}>
                       <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: 'var(--tracking-meta)', textTransform: 'uppercase', color: 'var(--accent)', background: 'rgba(10,10,11,.6)', backdropFilter: 'blur(6px)', padding: '5px 10px', border: '1px solid var(--line-2)', display: 'inline-flex', alignItems: 'center', gap: 7 }}>
                         <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)', boxShadow: 'var(--glow-sm)' }} />{t.videoBadge}
                       </span>
                       <span style={{ color: 'var(--accent-ink)', background: 'var(--accent)', width: 42, height: 42, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: 3, boxShadow: 'var(--glow-md)' }}><PlayIcon size={18} /></span>
-                    </div>
+                    </div> */}
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-3)' }}>
                     {['m1', 'm2', 'm3'].map((m) => (
@@ -283,6 +286,7 @@ export default function App() {
           <div data-reveal style={{ opacity: 0, transform: 'translateY(42px)', transition: 'opacity .9s var(--ease-expo), transform .9s var(--ease-expo)', marginTop: 'var(--space-6)' }}>
             <ContactLink label="TELEGRAM" value="@ARHIDIS1" href="https://t.me/arhidis1" size={44} />
             <ContactLink label={t.phoneLabel} value="+7 950 867-99-85" href="tel:+79508679985" size={44} />
+            <ContactLink label={t.mail} value="archytecktoraav@gmail.com" href="mailto:archytecktoraav@gmail.com" size={44} />
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 'var(--space-5)', marginTop: 'var(--space-8)' }}>
             <Button variant="accent" size="lg" onClick={() => downloadResume(lang)}>{t.resume} <ArrowDown size={14} /></Button>
