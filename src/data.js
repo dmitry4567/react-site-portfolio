@@ -13,7 +13,7 @@ export const T = {
     loadMore: 'Показать ещё', loading: 'Подгрузка кейсов',
     resume: 'Скачать резюме', scroll: 'Скролл',
     tgLabel: 'Telegram', phoneLabel: 'Телефон', eduTitle: 'Образование',
-    mail: 'Почта', footer: '© 2026 Алексей Вторыгин — арт-директор'
+    mail: 'E-mail', footer: '© 2026 Алексей Вторыгин — арт-директор'
   },
   en: {
     navWork: 'Work', navAbout: 'About', navTimeline: 'Experience', navContact: 'Contact',
@@ -27,7 +27,7 @@ export const T = {
     loadMore: 'Load more', loading: 'Loading cases',
     resume: 'Download CV', scroll: 'Scroll',
     tgLabel: 'Telegram', phoneLabel: 'Phone', eduTitle: 'Education',
-    mail: 'mail', footer: '© 2026 Aleksey Vtorygin — Art Director'
+    mail: 'E-mail', footer: '© 2026 Aleksey Vtorygin — Art Director'
   }
 };
 

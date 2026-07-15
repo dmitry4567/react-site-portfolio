@@ -142,7 +142,7 @@ export default function App() {
             <HoverLink href="tel:+79508679985" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 10, ...meta, fontSize: 13, color: 'var(--fg-1)' }}>
               <span style={{ color: 'var(--fg-3)' }}>{t.phoneLabel}</span>+7 950 867-99-85<ArrowUpRight size={13} style={{ marginLeft: 2 }} />
             </HoverLink>
-            <HoverLink href="mailto:archytecktoraav@gmail.com" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 10, ...meta, fontSize: 13, color: 'var(--fg-1)' }}>
+            <HoverLink href="https://mail.google.com/mail/?view=cm&to=archytecktoraav@gmail.com" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 10, ...meta, fontSize: 13, color: 'var(--fg-1)' }}>
               <span style={{ color: 'var(--fg-3)' }}>{t.mail}</span>archytecktoraav@gmail.com<ArrowUpRight size={13} style={{ marginLeft: 2 }} />
             </HoverLink>
           </div>
