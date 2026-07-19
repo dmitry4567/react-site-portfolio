@@ -1,57 +1,60 @@
 import { useEffect, useState } from 'react'
 import { CASES } from './data.js'
 import { MANIFEST_URL } from './config.js'
+import { fetchCasesFromSheets } from './sheets.js'
 
 /**
- * Грузит manifest.json с Cloudflare R2 и отдаёт список кейсов + hero-медиа.
+ * Источники данных (в порядке приоритета):
+ *   1. Google Sheets — кейсы (Cases + Media листы), если задан VITE_SHEETS_ID
+ *   2. Cloudflare R2  — manifest.json, если задан VITE_R2_BASE; отсюда берётся hero
+ *   3. data.js        — встроенный фолбэк, сайт никогда не будет пустым
  *
- * Формат манифеста (см. manifest.example.json):
- *   {
- *     "hero": { "photo": { "type": "image", "src": "hero.jpg" } },
- *     "cases": [
- *       {
- *         "id": "arkhipova", "year": "2019—2023",
- *         "title":  { "ru": "...", "en": "..." },
- *         "role":   { "ru": "...", "en": "..." },
- *         "goal":   { "ru": "...", "en": "..." },
- *         "desc":   { "ru": "...", "en": "..." },
- *         "result": { "ru": "...", "en": "..." },
- *         "tags":   { "ru": ["..."], "en": ["..."] },
- *         "media": {
- *           "m0": { "type": "video", "src": "cases/arkhipova/cover.mp4", "poster": "cases/arkhipova/cover.jpg" },
- *           "m1": { "type": "image", "src": "cases/arkhipova/1.jpg" },
- *           "m2": { "type": "image", "src": "cases/arkhipova/2.jpg" },
- *           "m3": { "type": "image", "src": "cases/arkhipova/3.jpg" }
- *         }
- *       }
- *     ]
- *   }
- *
- * Пока манифест грузится (или если R2 недоступен) — показываются встроенные
- * тексты из data.js без медиа, чтобы сайт никогда не был пустым.
+ * Формат manifest.json (R2) не изменился; hero по-прежнему берётся оттуда.
+ * Кейсы из Google Sheets имеют приоритет над кейсами из manifest.json.
  */
 export function useManifest() {
   const [state, setState] = useState({
-    cases: CASES,   // фолбэк: встроенные тексты
+    cases: CASES,
     hero: null,
     source: 'local',
   })
 
   useEffect(() => {
-    if (!MANIFEST_URL) return // базовый URL R2 не задан — остаёмся на фолбэке
     let cancelled = false
 
-    fetch(MANIFEST_URL, { cache: 'no-cache' })
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-      .then((m) => {
-        if (cancelled) return
-        const cases = Array.isArray(m && m.cases) && m.cases.length ? m.cases : CASES
-        setState({ cases, hero: (m && m.hero) || null, source: 'r2' })
-      })
-      .catch((err) => {
-        if (!cancelled) console.warn('[manifest] не удалось загрузить с R2, использую data.js:', err.message)
-      })
+    async function load() {
+      // 1. Google Sheets — кейсы
+      let sheetsCases = null
+      try {
+        sheetsCases = await fetchCasesFromSheets()
+      } catch (err) {
+        console.warn('[manifest] Sheets недоступен, пробую R2:', err.message)
+      }
 
+      // 2. R2 manifest — hero-медиа (и кейсы как запасной вариант)
+      let r2Cases = null
+      let hero = null
+      if (MANIFEST_URL) {
+        try {
+          const r = await fetch(MANIFEST_URL, { cache: 'no-cache' })
+          if (r.ok) {
+            const m = await r.json()
+            r2Cases = Array.isArray(m?.cases) && m.cases.length ? m.cases : null
+            hero = m?.hero || null
+          }
+        } catch (err) {
+          console.warn('[manifest] R2 недоступен, использую data.js:', err.message)
+        }
+      }
+
+      if (cancelled) return
+
+      const cases = sheetsCases || r2Cases || CASES
+      const source = sheetsCases ? 'sheets' : (r2Cases ? 'r2' : 'local')
+      setState({ cases, hero, source })
+    }
+
+    load()
     return () => { cancelled = true }
   }, [])
 

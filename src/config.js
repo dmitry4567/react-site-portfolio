@@ -23,3 +23,14 @@ export function r2url(src) {
   if (!R2_BASE) return src
   return `${R2_BASE}/${String(src).replace(/^\/+/, '')}`
 }
+
+// Google Sheets (gviz/tq — не требует API-ключа, достаточно публичного доступа к таблице).
+// VITE_SHEETS_ID — ID таблицы из URL: https://docs.google.com/spreadsheets/d/{ID}/edit
+export const SHEETS_ID = String(import.meta.env.VITE_SHEETS_ID || '')
+
+// Возвращает URL для чтения листа таблицы в формате JSON (gviz).
+// headers=1 — явно указываем, что первая строка является заголовком.
+export function sheetsUrl(sheetName) {
+  if (!SHEETS_ID) return null
+  return `https://docs.google.com/spreadsheets/d/${SHEETS_ID}/gviz/tq?tqx=out:json&headers=1&sheet=${encodeURIComponent(sheetName)}`
+}
