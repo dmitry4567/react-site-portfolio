@@ -3,12 +3,13 @@ import { ABOUT, EDUCATION, SKILLS, CASES } from './data.js'
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 /** Открывает печатную версию резюме в новом окне и запускает печать (как в исходном экспорте). */
-export function downloadResume(lang) {
+export function downloadResume(lang, liveCases) {
   const isRu = lang === 'ru'
   const summary = ABOUT[lang].map((p) => '<p>' + esc(p) + '</p>').join('')
   const edu = EDUCATION[lang].map((e) => '<div class="row"><span class="yr">' + esc(e.year) + '</span><span>' + esc(e.line) + '</span></div>').join('')
   const skills = SKILLS[lang].map((s) => '<span class="chip">' + esc(s) + '</span>').join('')
-  const exp = CASES.map((c) =>
+  const sourceCases = (liveCases && liveCases.length) ? liveCases : CASES
+  const exp = sourceCases.map((c) =>
     '<div class="exp"><div class="exp-h"><span class="exp-role">' + esc(c.role[lang]) +
     '</span><span class="exp-yr">' + esc(c.year) + '</span></div><p class="exp-d">' + esc(c.desc[lang]) + '</p></div>'
   ).join('')

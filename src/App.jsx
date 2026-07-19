@@ -147,7 +147,7 @@ export default function App() {
             </HoverLink>
           </div>
           <div style={{ marginTop: 'var(--space-4)' }}>
-            <Button variant="accent" size="lg" onClick={() => downloadResume(lang)}>{t.resume} <ArrowDown size={14} /></Button>
+            <Button variant="accent" size="lg" onClick={() => downloadResume(lang, ALL_CASES)}>{t.resume} <ArrowDown size={14} /></Button>
           </div>
         </div>
 
@@ -289,7 +289,7 @@ export default function App() {
             <ContactLink label={t.mail} value="archytecktoraav@gmail.com" href="mailto:archytecktoraav@gmail.com" size={44} />
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 'var(--space-5)', marginTop: 'var(--space-8)' }}>
-            <Button variant="accent" size="lg" onClick={() => downloadResume(lang)}>{t.resume} <ArrowDown size={14} /></Button>
+            <Button variant="accent" size="lg" onClick={() => downloadResume(lang, ALL_CASES)}>{t.resume} <ArrowDown size={14} /></Button>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: 'var(--tracking-meta)', textTransform: 'uppercase', color: 'var(--fg-3)' }}>{t.footer}</span>
           </div>
         </div>
